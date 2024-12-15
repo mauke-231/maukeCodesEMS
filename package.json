@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "start": "^5.1.0",
     "yarn": "^1.22.22"
   }
 }
