@@ -1,6 +1,7 @@
 import { useContext } from 'react';
 import { Navigate } from 'react-router-dom';
 import { UserContext } from '../UserContext';
+import PropTypes from 'prop-types';
 
 export const ProtectedRoute = ({ children, adminOnly = false }) => {
     const { user, loading } = useContext(UserContext);
@@ -19,3 +20,8 @@ export const ProtectedRoute = ({ children, adminOnly = false }) => {
 
     return children;
 }; 
+
+ProtectedRoute.propTypes = {
+    children: PropTypes.node.isRequired,
+    adminOnly: PropTypes.bool.isRequired,
+  };
