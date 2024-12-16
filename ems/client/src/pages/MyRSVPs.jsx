@@ -14,7 +14,7 @@ export default function MyRSVPs() {
 
     const fetchMyRSVPs = async () => {
         try {
-            const response = await fetch('https://campus-backend-oxyd.onrender.com/my-rsvps', {
+            const response = await fetch('http://localhost:4000/my-rsvps', {
                 credentials: 'include'
             });
             const data = await response.json();
@@ -38,7 +38,7 @@ export default function MyRSVPs() {
         }
 
         try {
-            const response = await fetch(`https://campus-backend-oxyd.onrender.com/events/${eventId}/rsvp`, {
+            const response = await fetch(`http://localhost:4000/events/${eventId}/rsvp`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

@@ -17,7 +17,7 @@ export default function EventDetail() {
 
     const fetchEventDetails = async () => {
         try {
-            const response = await fetch(`https://campus-backend-oxyd.onrender.com/events/${id}`, {
+            const response = await fetch(`http://localhost:4000/events/${id}`, {
                 credentials: 'include'
             });
             const data = await response.json();

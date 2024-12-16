@@ -12,7 +12,7 @@ import { BiLike } from "react-icons/bi";
     useEffect(() => {
       
       axios
-        .get("https://campus-backend-oxyd.onrender.com/createEvent")
+        .get("/createEvent")
         .then((response) => {
           setEvents(response.data);
         })
@@ -24,7 +24,7 @@ import { BiLike } from "react-icons/bi";
   //! Like Functionality --------------------------------------------------------------
     const handleLike = (eventId) => {
       axios
-        .post(`https://campus-backend-oxyd.onrender.com/event/${eventId}`)
+        .post(`/event/${eventId}`)
         .then((response) => {
             setEvents((prevEvents) =>
             prevEvents.map((event) =>
@@ -36,7 +36,7 @@ import { BiLike } from "react-icons/bi";
           console.log("done", response)
         })
         .catch((error) => {
-          console.error("Error liking event:", error);
+          console.error("Error liking ", error);
         });
     };
   
