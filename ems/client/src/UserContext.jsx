@@ -9,7 +9,7 @@ export function UserContextProvider({children}){
 
   useEffect(() => {
     // Check if user is logged in when the app loads
-    fetch('https://campuse.onrender.com/profile', {
+    fetch('https://campus-backend-oxyd.onrender.com/profile', {
       credentials: 'include',
     }).then(response => {
       if (response.ok) {
@@ -25,7 +25,7 @@ export function UserContextProvider({children}){
 
   const logout = async () => {
     try {
-      await fetch('https://campuse.onrender.com/logout', {
+      await fetch('https://campus-backend-oxyd.onrender.com/logout', {
         method: 'POST',
         credentials: 'include'
       });
