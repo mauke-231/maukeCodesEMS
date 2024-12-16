@@ -12,7 +12,7 @@ export default function LoginPage() {
     async function handleSubmit(e) {
         e.preventDefault();
         try {
-            const response = await fetch('http://localhost:4000/login', {
+            const response = await fetch('https://campuse.onrender.com/login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
