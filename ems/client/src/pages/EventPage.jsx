@@ -20,7 +20,10 @@ export default function EventsPage() {
     const fetchEvents = async () => {
         try {
             const response = await fetch('http://localhost:4000/events', {
-                credentials: 'include'
+                credentials: 'include',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
             });
             const data = await response.json();
             if (response.ok) {
