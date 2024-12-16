@@ -19,7 +19,7 @@ export default function CreateEvent() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await fetch('http://localhost:4000/events', {
+            const response = await fetch('https://campus-backend-oxyd.onrender.com/events', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

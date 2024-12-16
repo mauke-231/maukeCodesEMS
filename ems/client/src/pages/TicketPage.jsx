@@ -17,7 +17,7 @@ export default function TicketPage() {
     }, );
   
     const fetchTickets = async()=>{
-      axios.get(`/tickets/user/${user._id}`)
+      axios.get(`https://campus-backend-oxyd.onrender.com/tickets/user/${user._id}`)
           .then(response => {
             setUserTickets(response.data);
           })
@@ -28,8 +28,7 @@ export default function TicketPage() {
   
     const deleteTicket = async(ticketId) => {
       try {
-        await axios.delete(`/tickets/${ticketId}`); 
-        
+        await axios.delete(`https://campus-backend-oxyd.onrender.com/tickets/${ticketId}`); 
         fetchTickets();
         alert('Ticket Deleted');
       } catch (error) {

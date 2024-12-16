@@ -12,7 +12,7 @@ export default function LoginPage() {
     async function handleSubmit(e) {
         e.preventDefault();
         try {
-            const response = await fetch('https://campuse.onrender.com/login', {
+            const response = await fetch('https://campus-backend-oxyd.onrender.com/login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

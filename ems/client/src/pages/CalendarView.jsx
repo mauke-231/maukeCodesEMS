@@ -34,7 +34,7 @@ export default function CalendarView() {
 
     const fetchEvents = async () => {
         try {
-            const response = await fetch('http://localhost:4000/events', {
+            const response = await fetch('https://campus-backend-oxyd.onrender.com/events', {
                 credentials: 'include'
             });
             const data = await response.json();

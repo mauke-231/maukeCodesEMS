@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = 'https://campuse.onrender.com';
+const API_URL = 'https://campus-backend-oxyd.onrender.com';
 
 // Configure axios to include credentials
 axios.defaults.withCredentials = true;

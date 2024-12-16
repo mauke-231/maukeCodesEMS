@@ -30,7 +30,7 @@ export default function RegisterPage() {
 
         try {
             console.log('Sending registration request...');
-            const response = await fetch('https://campuse.onrender.com/register', {
+            const response = await fetch('https://campus-backend-oxyd.onrender.com/register', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
