@@ -4,15 +4,13 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "start": "react-scripts start",
-    "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview"
+    "start": "react-scripts start"
   },
   "dependencies": {
     "@babel/runtime": "^7.26.0",
     "@babel/runtime-corejs3": "^7.26.0",
     "axios": "^1.7.9",
+    "chalk": "^5.3.0",
     "date-fns": "^2.30.0",
     "mongoose": "^7.4.4",
     "prettylink": "^1.1.0",
@@ -37,7 +35,8 @@
     "nodemon": "^3.1.9",
     "postcss": "^8.4.24",
     "tailwindcss": "^3.3.2",
-    "vite": "^4.5.5"
+    "vite": "^4.5.5",
+    "chalk": "^5.3.0"
   },
   "browserslist": {
     "production": [
