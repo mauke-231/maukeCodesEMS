@@ -36,7 +36,7 @@ export default function App() {
             <Route 
               path="/my-rsvps" 
               element={
-                <ProtectedRoute>
+                <ProtectedRoute adminOnly={false}>
                   <MyRSVPs />
                 </ProtectedRoute>
               } 
