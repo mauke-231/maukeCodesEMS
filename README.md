@@ -5,6 +5,11 @@ A **Campus Event Management System** that allows admins to create and manage eve
 This project uses **JavaScript**, **React (with Vite)** for the frontend, and **Node.js** for the backend, along with HTML and CSS for additional structure and styling.
 
 ---
+## Deployment Links:
+### Frontend:
+### Backend: https://campus-backend-oxyd.onrender.com
+
+---
 
 ## Features
 
