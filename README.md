@@ -12,6 +12,16 @@ This project uses **JavaScript**, **React (with Vite)** for the frontend, and **
 ### Backend: https://campus-backend-oxyd.onrender.com
 
 ---
+## Login Credentials
+### Admin:
+#### Email: admin1@gmail.com
+#### Password: admin1
+
+### User:
+#### Email: user11@gmail.com
+#### Password: user112
+
+---
 
 ## Features
 
@@ -21,7 +31,7 @@ This project uses **JavaScript**, **React (with Vite)** for the frontend, and **
 
 ### Non-Admin Users:
 - Log in to view available events.
-- View events on an interactive calendar.
+- View events on the calendar.
 - RSVP for events.
 
 ---
