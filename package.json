@@ -3,5 +3,8 @@
     "build": "^0.1.4",
     "start": "^5.1.0",
     "yarn": "^1.22.22"
+  },
+  "devDependencies": {
+    "vite": "^6.0.3"
   }
 }

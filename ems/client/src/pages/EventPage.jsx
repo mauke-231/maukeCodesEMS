@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext } from 'react';
+//import { useState, useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { UserContext } from '../UserContext';
 
@@ -9,7 +9,7 @@ export default function EventsPage() {
     const [error, setError] = useState(null);
     const [searchTerm, setSearchTerm] = useState('');
     const [selectedCategory, setSelectedCategory] = useState('All');
-    const { user } = useContext(UserContext);
+    //const { user } = useContext(UserContext);
 
     const categories = ['All', 'Academic', 'Social', 'Sports', 'Other'];
 
