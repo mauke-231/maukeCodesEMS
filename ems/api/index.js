@@ -20,7 +20,7 @@ app.use(cookieParser());
 app.use(
    cors({
       credentials: true,
-      origin: "https://campus-backend-oxyd.onrender.com",
+      origin: ['http://localhost:3000', 'https://campus-backend-oxyd.onrender.com']
    })
 );
 

@@ -1,6 +1,9 @@
 /* eslint-disable react/prop-types */
 import {createContext, useEffect, useState} from "react";
 
+const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:4000';
+
+
 export const UserContext = createContext({});
 
 export function UserContextProvider({children}){
@@ -9,7 +12,7 @@ export function UserContextProvider({children}){
 
   useEffect(() => {
     // Check if user is logged in when the app loads
-    fetch('http://localhost:4000/profile', {
+    fetch(`${API_URL}/profile`, {
       credentials: 'include',
     }).then(response => {
       if (response.ok) {
@@ -20,12 +23,21 @@ export function UserContextProvider({children}){
       } else {
         setLoading(false);
       }
+    })
+    .catch(error => {
+      console.error('Failed to fetch profile:', error);
+      setLoading(false);  // Make sure to set loading to false even if there's an error
     });
   }, []);
 
+  // Add a loading indicator or return children if not loading
+  if (loading) {
+    return <div>Loading...</div>;  // Or your preferred loading component
+  }
+
   const logout = async () => {
     try {
-      await fetch('http://localhost:4000/logout', {
+      await fetch(`${API_URL}/logout`, {
         method: 'POST',
         credentials: 'include'
       });

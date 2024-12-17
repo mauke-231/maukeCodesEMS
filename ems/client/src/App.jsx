@@ -3,7 +3,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Header from './pages/Header';
 import { UserContextProvider } from './UserContext';
 import { ProtectedRoute } from './components/ProtectedRoute';
-import IndexPage from './pages/IndexPage';
+//import IndexPage from './pages/IndexPage';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import CreateEvent from './pages/CreateEvent';
