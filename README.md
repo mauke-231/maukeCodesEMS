@@ -1,5 +1,7 @@
 # Campus Event Management System
 
+## (Developed for Web Technologies End of Semester Exam)
+
 A **Campus Event Management System** that allows admins to create and manage events while enabling non-admin users to view events on a calendar and RSVP for events.
 
 This project uses **JavaScript**, **React (with Vite)** for the frontend, and **Node.js** for the backend, along with HTML and CSS for additional structure and styling.
@@ -120,13 +122,7 @@ ems/
 ---
 
 ## Screenshots
-
-### Example:
-![Admin Dashboard](./assets/admin-dashboard.png)
-![Calendar View](./assets/calendar-view.png)
-
-- **Tip**: Place your images/screenshots in an `assets` folder at the root of your project and reference them like `./assets/your-image.png`.
-
+##### Loading...
 ---
 
 ## API Endpoints
