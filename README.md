@@ -6,7 +6,7 @@ This project uses **JavaScript**, **React (with Vite)** for the frontend, and **
 
 ---
 ## Deployment Links:
-### Frontend:
+### Frontend: (under development)
 ### Backend: https://campus-backend-oxyd.onrender.com
 
 ---
