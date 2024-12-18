@@ -6,7 +6,7 @@ export default function MyRSVPs() {
     const [rsvpEvents, setRsvpEvents] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
-    const { user } = useContext(UserContext);
+    const { setUser } = useContext(UserContext);
 
     useEffect(() => {
         fetchMyRSVPs();
@@ -67,7 +67,7 @@ export default function MyRSVPs() {
             
             {rsvpEvents.length === 0 ? (
                 <div className="text-center text-gray-500">
-                    You haven't RSVP'd to any events yet.
+                    You haven&apos;t RSVP&apos;d to any events yet.
                 </div>
             ) : (
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
