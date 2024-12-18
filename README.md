@@ -154,7 +154,7 @@ ems/
 ![Login](./assets/api-login.png)
 
 #### GET Events
-![GET Events](./assets/api-events.png)
+![GET Events](./assets/api-get-events.png)
 
 #### DELETE Event
 ![DELETE Event](./assets/api-delete-event.png)
