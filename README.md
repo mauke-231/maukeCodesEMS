@@ -132,16 +132,43 @@ ems/
 ---
 
 ## Screenshots
-##### Loading...
+#### Homepage
+![Homepage](./assets/ems-homepage.png)
+
+#### Event Page
+![Events Page](./assets/ems-events.png)
+
+#### Calendar View
+![Calendar](./assets/ems-calendar.png)
+
+#### User RSVPs (Non-Admin)
+![User RSVPs](./assets/ems-user-rsvps.png)
+
 ---
 
 ## API Endpoints
 
+### API Testing
+
+#### Login
+![Login](./assets/api-login.png)
+
+#### GET Events
+![GET Events](./assets/api-events.png)
+
+#### DELETE Event
+![DELETE Event](./assets/api-delete-event.png)
+
+
+
+
 | Endpoint             | Method | Description                    |
 |----------------------|--------|--------------------------------|
-| `/api/events`        | GET    | Fetch all events               |
-| `/api/events/:id`    | GET    | Fetch a single event by ID     |
-| `/api/events`        | POST   | Create a new event (Admin)     |
-| `/api/events/:id`    | PUT    | Update an event (Admin)        |
+| `/events`            | GET    | Fetch all events               |
+| `/login`             | GET    | Login                          |
+| `/register`          | GET    | Login                          |
+| `/events/:id`        | GET    | Fetch a single event by ID     |
+| `/events`            | POST   | Create a new event (Admin)     |
+| `/events/:id`        | PUT    | Update an event (Admin)        |
 | `/api/events/:id`    | DELETE | Delete an event (Admin)        |
 | `/api/rsvp/:eventId` | POST   | RSVP to an event (Non-admin)   |
