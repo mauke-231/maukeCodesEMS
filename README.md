@@ -18,6 +18,7 @@ This project uses **JavaScript**, **React (with Vite)** for the frontend, and **
 #### Password: admin1
 
 ### User:
+#### Name: User1
 #### Email: user11@gmail.com
 #### Password: user112
 
