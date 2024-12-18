@@ -67,8 +67,8 @@ Make sure you have the following installed on your system:
 
 #### 1. Clone the Repository:
 ```bash
-git clone https://github.com/yourusername/campus-event-management-system.git
-cd campus-event-management-system
+git clone https://github.com/mauke-231/maukeCodesEMS.git
+cd maukeCodesEMS
 ```
 
 #### 2. Install Dependencies:
@@ -121,7 +121,7 @@ ems/
 |   |-- index.html         # HTML template
 |   |-- package.json       # Frontend dependencies
 |
-|-- api/                # Backend code (Node.js + Express)
+|-- api/                   # Backend code (Node.js + Express)
 |   |-- models/            # Database models
 |   |-- routes/            # API routes
 |   |-- index.js           # Entry point for backend server
