@@ -90,6 +90,12 @@ npm install
 ### Running the Application
 
 #### Backend:
+Create a .env file in the backend directory with your MongoDB connection string and other configurations:
+```bash
+MONGODB_URI=your_mongodb_connection_string
+JWT_SECRET=your_jwt_secret
+```
+
 Start the backend server:
 ```bash
 cd ems/api
@@ -138,6 +144,9 @@ ems/
 
 #### Event Page
 ![Events Page](./assets/ems-events.png)
+
+#### Create Event Page (Admin)
+![Events Page](./assets/admin-create-event.png)
 
 #### Calendar View
 ![Calendar](./assets/ems-calendar.png)
