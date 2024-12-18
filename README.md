@@ -18,6 +18,7 @@ This project uses **JavaScript**, **React (with Vite)** for the frontend, and **
 #### Password: admin1
 
 ### User:
+#### Name: User1
 #### Email: user11@gmail.com
 #### Password: user112
 
@@ -66,8 +67,8 @@ Make sure you have the following installed on your system:
 
 #### 1. Clone the Repository:
 ```bash
-git clone https://github.com/yourusername/campus-event-management-system.git
-cd campus-event-management-system
+git clone https://github.com/mauke-231/maukeCodesEMS.git
+cd maukeCodesEMS
 ```
 
 #### 2. Install Dependencies:
@@ -120,7 +121,7 @@ ems/
 |   |-- index.html         # HTML template
 |   |-- package.json       # Frontend dependencies
 |
-|-- api/                # Backend code (Node.js + Express)
+|-- api/                   # Backend code (Node.js + Express)
 |   |-- models/            # Database models
 |   |-- routes/            # API routes
 |   |-- index.js           # Entry point for backend server
@@ -154,7 +155,7 @@ ems/
 ![Login](./assets/api-login.png)
 
 #### GET Events
-![GET Events](./assets/api-events.png)
+![GET Events](./assets/api-get-events.png)
 
 #### DELETE Event
 ![DELETE Event](./assets/api-delete-event.png)
@@ -170,5 +171,5 @@ ems/
 | `/events/:id`        | GET    | Fetch a single event by ID     |
 | `/events`            | POST   | Create a new event (Admin)     |
 | `/events/:id`        | PUT    | Update an event (Admin)        |
-| `/api/events/:id`    | DELETE | Delete an event (Admin)        |
-| `/api/rsvp/:eventId` | POST   | RSVP to an event (Non-admin)   |
+| `/events/:id`        | DELETE | Delete an event (Admin)        |
+| `/rsvp/:eventId`     | POST   | RSVP to an event (Non-admin)   |
