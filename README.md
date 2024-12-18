@@ -171,5 +171,5 @@ ems/
 | `/events/:id`        | GET    | Fetch a single event by ID     |
 | `/events`            | POST   | Create a new event (Admin)     |
 | `/events/:id`        | PUT    | Update an event (Admin)        |
-| `/api/events/:id`    | DELETE | Delete an event (Admin)        |
-| `/api/rsvp/:eventId` | POST   | RSVP to an event (Non-admin)   |
+| `/events/:id`        | DELETE | Delete an event (Admin)        |
+| `/rsvp/:eventId`     | POST   | RSVP to an event (Non-admin)   |
