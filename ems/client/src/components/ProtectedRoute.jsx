@@ -1,27 +1,16 @@
-import { useContext } from 'react';
+/* eslint-disable no-unused-vars */
+import React, { useContext } from 'react';
 import { Navigate } from 'react-router-dom';
 import { UserContext } from '../UserContext';
-import PropTypes from 'prop-types';
 
-export const ProtectedRoute = ({ children, adminOnly = false }) => {
-    const { user, loading } = useContext(UserContext);
-
-    if (loading) {
-        return <div>Loading...</div>;
-    }
+const ProtectedRoute = ({ children }) => {
+    const { user } = useContext(UserContext);
 
     if (!user) {
         return <Navigate to="/login" />;
     }
 
-    if (adminOnly && !user.isAdmin) {
-        return <Navigate to="/" />;
-    }
-
     return children;
-}; 
+};
 
-ProtectedRoute.propTypes = {
-    children: PropTypes.node.isRequired,
-    adminOnly: PropTypes.bool.isRequired,
-  };
+export default ProtectedRoute;

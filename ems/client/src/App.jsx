@@ -5,9 +5,11 @@ import LoginPage from './pages/LoginPage';
 import HomePage from './pages/HomePage';
 import RegisterPage from './pages/RegisterPage';
 import CalendarView from './pages/CalendarView';
-import EventPage from './pages/EventPage'; // Ensure this page exists
+import EventPage from './pages/EventPage';
+import CreateEvent from './pages/CreateEvent';
 import Header from './pages/Header';
 import { UserProvider } from './UserContext';
+import ProtectedRoute from './components/ProtectedRoute';
 
 function App() {
     return (
@@ -19,7 +21,12 @@ function App() {
                     <Route path="/login" element={<LoginPage />} />
                     <Route path="/register" element={<RegisterPage />} />
                     <Route path="/calendar" element={<CalendarView />} />
-                    <Route path="/events" element={<EventPage />} /> {/* Ensure this route exists */}
+                    <Route path="/events" element={<EventPage />} />
+                    <Route path="/create-event" element={
+                        <ProtectedRoute>
+                            <CreateEvent />
+                        </ProtectedRoute>
+                    } />
                 </Routes>
             </Router>
         </UserProvider>

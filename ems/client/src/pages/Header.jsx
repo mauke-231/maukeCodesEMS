@@ -1,4 +1,3 @@
-//import React, { useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useContext } from 'react';
 import { UserContext } from '../UserContext';
@@ -26,34 +25,15 @@ export default function Header() {
                                 <li><Link to="/register" className="hover:text-red-200">Register</Link></li>
                             </>
                         )}
-                        {user && !user.isAdmin && (
-                            <li>
-                                <Link to="/my-rsvps" className="hover:text-red-200">
-                                    My RSVPs
-                                </Link>
-                            </li>
-                        )}
-                        {user?.isAdmin && (
-                            <li>
-                                <Link to="/create-event" className="hover:text-red-200">
-                                    Create Event
-                                </Link>
-                            </li>
+                        {user && (
+                            <>
+                                {user.isAdmin && (
+                                    <li><Link to="/admin" className="hover:text-red-200">Admin</Link></li>
+                                )}
+                                <li><button onClick={handleLogout} className="hover:text-red-200">Logout</button></li>
+                            </>
                         )}
                     </div>
-                    {user && (
-                        <div className="flex gap-4 items-center">
-                            <li><span className="hover:text-red-200">Welcome, {user.name}</span></li>
-                            <li>
-                                <button 
-                                    onClick={handleLogout} 
-                                    className="hover:text-red-200"
-                                >
-                                    Logout
-                                </button>
-                            </li>
-                        </div>
-                    )}
                 </ul>
             </nav>
         </header>
