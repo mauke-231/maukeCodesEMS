@@ -175,8 +175,8 @@ ems/
 | Endpoint             | Method | Description                    |
 |----------------------|--------|--------------------------------|
 | `/events`            | GET    | Fetch all events               |
-| `/login`             | GET    | Login                          |
-| `/register`          | GET    | Login                          |
+| `/users/login`       | POST   | Login                          |
+| `/users/register`    | POST   | Register                       |
 | `/events/:id`        | GET    | Fetch a single event by ID     |
 | `/events`            | POST   | Create a new event (Admin)     |
 | `/events/:id`        | PUT    | Update an event (Admin)        |
