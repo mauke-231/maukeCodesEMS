@@ -1,12 +1,12 @@
-import { useState, useEffect, useContext } from 'react';
+import { useState, useEffect} from 'react'; //, useContext 
 import { Link } from 'react-router-dom';
-import { UserContext } from '../UserContext';
+//import { UserContext } from '../UserContext';
 
 export default function MyRSVPs() {
     const [rsvpEvents, setRsvpEvents] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
-    const { setUser } = useContext(UserContext);
+   // const { setUser } = useContext(UserContext);
 
     useEffect(() => {
         fetchMyRSVPs();

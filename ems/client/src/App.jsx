@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Header from './pages/Header';
 import { UserContextProvider } from './UserContext';
 import { ProtectedRoute } from './components/ProtectedRoute';
@@ -12,10 +12,11 @@ import EventDetails from './pages/EventDetails';
 import MyRSVPs from './pages/MyRSVPs';
 import CalendarView from './pages/CalendarView';
 import HomePage from './pages/HomePage';
+import Login from './components/Login';
 
 export default function App() {
   return (
-    <BrowserRouter>
+    <Router>
       <UserContextProvider>
         <div className="flex flex-col min-h-screen">
           <Header />
@@ -42,9 +43,10 @@ export default function App() {
               } 
             />
             <Route path="/calendar" element={<CalendarView />} />
+            <Route path="/login" element={<Login />} />
           </Routes>
         </div>
       </UserContextProvider>
-    </BrowserRouter>
+    </Router>
   );
 }
