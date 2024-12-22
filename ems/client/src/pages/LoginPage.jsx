@@ -1,110 +1,82 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { UserContext } from '../UserContext';
 
 function LoginPage() {
     const [formData, setFormData] = useState({
-        email: 'admin1@gmail.com',  // preset with test credentials
-        password: 'admin1',
-        isAdmin: true
+        email: '',
+        password: ''
     });
-    const [loading, setLoading] = useState(false);
-    const [error, setError] = useState(null);
+    const [error, setError] = useState('');
     const navigate = useNavigate();
+    const { login } = useContext(UserContext);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        setLoading(true);
-        setError(null);
-        
+        setError('');
+
         try {
-            console.log('Attempting login...'); // Debug log
-            const response = await fetch('https://campus-backend-oxyd.onrender.com/users/login', {
+            const response = await fetch('http://localhost:4000/login', {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
                 },
+                credentials: 'include',
                 body: JSON.stringify(formData)
             });
 
-            const data = await response.json();
-            console.log('Response:', data); // Debug log
-            
-            if (response.ok) {
-                localStorage.setItem('token', data.token);
-                navigate('/');
-            } else {
-                setError(data.error || 'Login failed');
+            if (!response.ok) {
+                const data = await response.json();
+                throw new Error(data.error || 'Login failed');
             }
+
+            const userData = await response.json();
+            login(userData);
+            navigate('/');
         } catch (error) {
-            console.error('Error during login:', error);
-            setError('Network error occurred');
-        } finally {
-            setLoading(false);
+            console.error('Login error:', error);
+            setError(error.message || 'Login failed. Please try again.');
         }
     };
 
-    // If you're seeing a white screen, this will help debug
-    console.log('Component rendering'); // Debug log
-
     return (
-        <div>
-            <nav style={{ backgroundColor: '#DC3545', padding: '1rem' }}>
-                <div style={{ display: 'flex', gap: '1rem' }}>
-                    <a href="/" style={{ color: 'white', textDecoration: 'none' }}>Home</a>
-                    <a href="/events" style={{ color: 'white', textDecoration: 'none' }}>Events</a>
-                    <a href="/calendar" style={{ color: 'white', textDecoration: 'none' }}>Calendar</a>
-                    <a href="/login" style={{ color: 'white', textDecoration: 'none' }}>Login</a>
-                    <a href="/register" style={{ color: 'white', textDecoration: 'none' }}>Register</a>
-                </div>
-            </nav>
-
-            <div style={{ padding: '2rem' }}>
-                {loading && <p>Loading...</p>}
-                {error && <p style={{ color: 'red' }}>{error}</p>}
-                
-                <form onSubmit={handleSubmit}>
-                    <div style={{ marginBottom: '1rem' }}>
+        <div className="container mx-auto p-8">
+            <div className="max-w-md mx-auto bg-white rounded-lg shadow-lg p-6">
+                <h1 className="text-2xl font-bold text-center text-red-600 mb-6">Login</h1>
+                {error && (
+                    <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
+                        {error}
+                    </div>
+                )}
+                <form onSubmit={handleSubmit} className="space-y-4">
+                    <div>
+                        <label className="block text-gray-700 mb-2">Email:</label>
                         <input
                             type="email"
+                            name="email"
                             value={formData.email}
-                            onChange={(e) => setFormData({...formData, email: e.target.value})}
-                            placeholder="Email"
-                            style={{ 
-                                padding: '0.5rem',
-                                width: '200px',
-                                border: '1px solid #ccc',
-                                borderRadius: '4px'
-                            }}
+                            onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                            className="w-full p-2 border rounded focus:border-red-500 focus:outline-none"
+                            required
                         />
                     </div>
-                    <div style={{ marginBottom: '1rem' }}>
+                    <div>
+                        <label className="block text-gray-700 mb-2">Password:</label>
                         <input
                             type="password"
+                            name="password"
                             value={formData.password}
-                            onChange={(e) => setFormData({...formData, password: e.target.value})}
-                            placeholder="Password"
-                            style={{ 
-                                padding: '0.5rem',
-                                width: '200px',
-                                border: '1px solid #ccc',
-                                borderRadius: '4px'
-                            }}
+                            onChange={(e) => setFormData({ ...formData, password: e.target.value })}
+                            className="w-full p-2 border rounded focus:border-red-500 focus:outline-none"
+                            required
                         />
                     </div>
                     <button 
                         type="submit"
-                        disabled={loading}
-                        style={{
-                            padding: '0.5rem 1rem',
-                            backgroundColor: '#DC3545',
-                            color: 'white',
-                            border: 'none',
-                            borderRadius: '4px',
-                            cursor: loading ? 'not-allowed' : 'pointer',
-                            opacity: loading ? 0.7 : 1
-                        }}
+                        className="w-full bg-red-600 text-white py-2 px-4 rounded hover:bg-red-700 transition duration-200"
                     >
-                        {loading ? 'Logging in...' : 'Login'}
+                        Login
                     </button>
                 </form>
             </div>

@@ -1,52 +1,29 @@
 /* eslint-disable no-unused-vars */
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Header from './pages/Header';
-import { UserContextProvider } from './UserContext';
-import { ProtectedRoute } from './components/ProtectedRoute';
-//import IndexPage from './pages/IndexPage';
+import React from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import LoginPage from './pages/LoginPage';
-import RegisterPage from './pages/RegisterPage';
-import CreateEvent from './pages/CreateEvent';
-import EventPage from './pages/EventPage';
-import EventDetails from './pages/EventDetails';
-import MyRSVPs from './pages/MyRSVPs';
-import CalendarView from './pages/CalendarView';
 import HomePage from './pages/HomePage';
-import Login from './components/Login';
+import RegisterPage from './pages/RegisterPage';
+import CalendarView from './pages/CalendarView';
+import EventPage from './pages/EventPage'; // Ensure this page exists
+import Header from './pages/Header';
+import { UserProvider } from './UserContext';
 
-export default function App() {
-  return (
-    <Router>
-      <UserContextProvider>
-        <div className="flex flex-col min-h-screen">
-          <Header />
-          <Routes>
-            <Route path="/" element={<HomePage />} />
-            <Route path="/login" element={<LoginPage />} />
-            <Route path="/register" element={<RegisterPage />} />
-            <Route path="/events" element={<EventPage />} />
-            <Route 
-              path="/create-event" 
-              element={
-                <ProtectedRoute adminOnly={true}>
-                  <CreateEvent />
-                </ProtectedRoute>
-              } 
-            />
-            <Route path="/events/:id" element={<EventDetails />} />
-            <Route 
-              path="/my-rsvps" 
-              element={
-                <ProtectedRoute adminOnly={false}>
-                  <MyRSVPs />
-                </ProtectedRoute>
-              } 
-            />
-            <Route path="/calendar" element={<CalendarView />} />
-            <Route path="/login" element={<Login />} />
-          </Routes>
-        </div>
-      </UserContextProvider>
-    </Router>
-  );
+function App() {
+    return (
+        <UserProvider>
+            <Router>
+                <Header />
+                <Routes>
+                    <Route path="/" element={<HomePage />} />
+                    <Route path="/login" element={<LoginPage />} />
+                    <Route path="/register" element={<RegisterPage />} />
+                    <Route path="/calendar" element={<CalendarView />} />
+                    <Route path="/events" element={<EventPage />} /> {/* Ensure this route exists */}
+                </Routes>
+            </Router>
+        </UserProvider>
+    );
 }
+
+export default App;
