@@ -75,7 +75,7 @@ function App() {
     return (
         <UserContext.Provider value={{ user, login, logout }}>
             <Router>
-                <Header user={user} />
+                <Header />
                 <Routes>
                     <Route path="/" element={user ? <EventPage /> : <Navigate to="/login" />} />
                     <Route path="/login" element={<LoginPage />} />

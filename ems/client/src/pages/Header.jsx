@@ -16,7 +16,7 @@ export default function Header() {
             <nav className="container mx-auto px-4 py-4">
                 <ul className="flex justify-between items-center">
                     <div className="flex gap-6">
-                        <li><Link to="/" className="hover:text-red-200">Home</Link></li>
+                        
                         <li><Link to="/events" className="hover:text-red-200">Events</Link></li>
                         <li><Link to="/calendar" className="hover:text-red-200">Calendar</Link></li>
                         {!user && (
@@ -42,3 +42,4 @@ export default function Header() {
         </header>
     );
 }
+//<li><Link to="/" className="hover:text-red-200">Home</Link></li>

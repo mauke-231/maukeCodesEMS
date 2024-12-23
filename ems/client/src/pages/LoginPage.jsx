@@ -17,7 +17,7 @@ function LoginPage() {
 
         try {
             await login(formData);
-            navigate('/');
+            navigate('/'); // Navigate to the homepage after login
         } catch (err) {
             setError(err.message);
             console.error('Login error:', err);
@@ -33,27 +33,31 @@ function LoginPage() {
                         {error}
                     </div>
                 )}
-                <form onSubmit={handleSubmit} className="space-y-4">
-                    <div>
-                        <label className="block text-gray-700 mb-2">Email:</label>
+                <form onSubmit={handleSubmit}>
+                    <div className="mb-4">
+                        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="email">
+                            Email
+                        </label>
                         <input
                             type="email"
-                            name="email"
+                            id="email"
                             value={formData.email}
                             onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                            className="w-full p-2 border rounded focus:border-red-500 focus:outline-none"
                             required
+                            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                         />
                     </div>
-                    <div>
-                        <label className="block text-gray-700 mb-2">Password:</label>
+                    <div className="mb-6">
+                        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="password">
+                            Password
+                        </label>
                         <input
                             type="password"
-                            name="password"
+                            id="password"
                             value={formData.password}
                             onChange={(e) => setFormData({ ...formData, password: e.target.value })}
-                            className="w-full p-2 border rounded focus:border-red-500 focus:outline-none"
                             required
+                            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                         />
                     </div>
                     <button 
