@@ -49,6 +49,17 @@ function RegisterPage() {
                 )}
                 <form onSubmit={handleSubmit} className="space-y-4">
                     <div>
+                        <label className="block text-gray-700 mb-2">Name:</label>
+                        <input
+                            type="text"
+                            name="name"
+                            value={formData.name}
+                            onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                            className="w-full p-2 border rounded focus:border-red-500 focus:outline-none"
+                            required
+                        />
+                    </div>
+                    <div>
                         <label className="block text-gray-700 mb-2">Email:</label>
                         <input
                             type="email"

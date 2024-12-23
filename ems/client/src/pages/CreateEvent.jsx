@@ -19,6 +19,8 @@ export default function CreateEvent() {
         capacity: 1
     });
 
+    const categories = ['Academic', 'Social', 'Sports', 'Other'];
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
@@ -81,14 +83,19 @@ export default function CreateEvent() {
                     </div>
                     <div>
                         <label className="block text-gray-700 mb-2">Category:</label>
-                        <input
-                            type="text"
+                        <select
                             name="category"
                             value={formData.category}
                             onChange={(e) => setFormData({ ...formData, category: e.target.value })}
                             className="w-full p-2 border rounded focus:border-red-500 focus:outline-none"
                             required
-                        />
+                        >
+                            {categories.map((category) => (
+                                <option key={category} value={category}>
+                                    {category}
+                                </option>
+                            ))}
+                        </select>
                     </div>
                     <div>
                         <label className="block text-gray-700 mb-2">Date:</label>
