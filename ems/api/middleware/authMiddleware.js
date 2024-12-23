@@ -29,4 +29,4 @@ const requireAdmin = async (req, res, next) => {
     next();
 };
 
-module.exports = { requireAuth, requireAdmin }; 
+module.exports = { requireAuth, requireAdmin };

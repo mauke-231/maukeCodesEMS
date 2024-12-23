@@ -30,6 +30,9 @@ export default function Header() {
                                 {user.isAdmin && (
                                     <li><Link to="/create-event" className="hover:text-red-200">Create Event</Link></li>
                                 )}
+                                {!user.isAdmin && (
+                                    <li><Link to="/my-rsvps" className="hover:text-red-200">My RSVPs</Link></li>
+                                )}
                                 <li><button onClick={handleLogout} className="hover:text-red-200">Logout</button></li>
                             </>
                         )}

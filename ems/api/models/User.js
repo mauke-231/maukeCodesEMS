@@ -7,8 +7,8 @@ const UserSchema = new mongoose.Schema({
     },
     email: {
         type: String,
-        unique: true,
-        required: true
+        required: true,
+        unique: true
     },
     password: {
         type: String,
@@ -17,11 +17,13 @@ const UserSchema = new mongoose.Schema({
     isAdmin: {
         type: Boolean,
         default: false
-    }
+    },
+    rsvpEvents: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Event'
+    }]
 }, {
     timestamps: true // This will add createdAt and updatedAt fields
 });
 
-const UserModel = mongoose.model('User', UserSchema);
-
-module.exports = UserModel;
+module.exports = mongoose.model('User', UserSchema);

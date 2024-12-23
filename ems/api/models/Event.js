@@ -35,11 +35,6 @@ const eventSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    createdBy: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User',
-        required: true
-    },
     capacity: {
         type: Number,
         required: true,
@@ -48,19 +43,15 @@ const eventSchema = new mongoose.Schema({
     attendees: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
-    }]
+    }],
+    createdBy: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+        required: true
+    }
 }, {
     timestamps: true
 });
 
-// Add a virtual field for spots remaining
-eventSchema.virtual('spotsRemaining').get(function() {
-    return this.capacity - (this.attendees?.length || 0);
-});
-
-// Ensure virtuals are included in JSON
-eventSchema.set('toJSON', { virtuals: true });
-
 const Event = mongoose.model('Event', eventSchema);
-
-module.exports = Event; 
+module.exports = Event;

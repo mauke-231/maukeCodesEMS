@@ -16,27 +16,11 @@ function LoginPage() {
         setError('');
 
         try {
-            const response = await fetch('http://localhost:4000/login', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Accept': 'application/json'
-                },
-                credentials: 'include',
-                body: JSON.stringify(formData)
-            });
-
-            if (!response.ok) {
-                const data = await response.json();
-                throw new Error(data.error || 'Login failed');
-            }
-
-            const userData = await response.json();
-            login(userData);
+            await login(formData);
             navigate('/');
-        } catch (error) {
-            console.error('Login error:', error);
-            setError(error.message || 'Login failed. Please try again.');
+        } catch (err) {
+            setError(err.message);
+            console.error('Login error:', err);
         }
     };
 

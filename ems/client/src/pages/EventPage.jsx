@@ -1,24 +1,36 @@
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-//import { UserContext } from '../UserContext';
+import { Link, useNavigate } from 'react-router-dom';
 
-export default function EventsPage() {
+const EventPage = () => {
     const [events, setEvents] = useState([]);
     const [filteredEvents, setFilteredEvents] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [searchTerm, setSearchTerm] = useState('');
     const [selectedCategory, setSelectedCategory] = useState('All');
-    //const { user } = useContext(UserContext);
+    const navigate = useNavigate();
 
     const categories = ['All', 'Academic', 'Social', 'Sports', 'Other'];
 
     useEffect(() => {
+        const checkAuth = async () => {
+            try {
+                const response = await fetch('http://localhost:4000/profile', {
+                    credentials: 'include'
+                });
+                if (!response.ok) throw new Error('Not authenticated');
+            } catch (err) {
+                navigate('/login');
+            }
+        };
+
+        checkAuth();
         fetchEvents();
-    }, []);
+    }, [navigate]);
 
     const fetchEvents = async () => {
         try {
+            console.log('Fetching events...');
             const response = await fetch('http://localhost:4000/events', {
                 credentials: 'include',
                 headers: {
@@ -26,14 +38,14 @@ export default function EventsPage() {
                 }
             });
             const data = await response.json();
-            if (response.ok) {
-                setEvents(data);
-                setFilteredEvents(data);
-            } else {
-                throw new Error(data.message || 'Failed to fetch events');
-            }
+            console.log('Response data:', data);
+            if (!response.ok) throw new Error(data.error || 'Failed to fetch events');
+
+            setEvents(data);
+            setFilteredEvents(data);
         } catch (err) {
             setError(err.message);
+            console.error('Error fetching events:', err);
         } finally {
             setLoading(false);
         }
@@ -131,4 +143,6 @@ export default function EventsPage() {
             )}
         </div>
     );
-}
+};
+
+export default EventPage;

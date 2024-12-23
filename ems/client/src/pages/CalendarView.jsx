@@ -1,4 +1,3 @@
-//import React from 'react';
 import { useState, useEffect } from 'react';
 import { Calendar, dateFnsLocalizer } from 'react-big-calendar';
 import format from 'date-fns/format';
@@ -7,7 +6,6 @@ import startOfWeek from 'date-fns/startOfWeek';
 import getDay from 'date-fns/getDay';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import { useNavigate } from 'react-router-dom';
-//import moment from 'moment';
 import enUS from 'date-fns/locale/en-US';
 
 const locales = {
@@ -22,31 +20,43 @@ const localizer = dateFnsLocalizer({
     locales
 });
 
-export default function CalendarView() {
+const CalendarView = () => {
     const [events, setEvents] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const navigate = useNavigate();
 
     useEffect(() => {
+        const checkAuth = async () => {
+            try {
+                const response = await fetch('http://localhost:4000/profile', {
+                    credentials: 'include'
+                });
+                if (!response.ok) throw new Error('Not authenticated');
+            } catch (err) {
+                navigate('/login');
+            }
+        };
+
+        checkAuth();
         fetchEvents();
-    }, []);
+    }, [navigate]);
 
     const fetchEvents = async () => {
         try {
+            console.log('Fetching events...');
             const response = await fetch('http://localhost:4000/events', {
                 credentials: 'include'
             });
             const data = await response.json();
-            console.log('Raw events from database:', data);
-            
-            // Transform events for calendar view
+            console.log('Response data:', data);
+            if (!response.ok) throw new Error(data.error || 'Failed to fetch events');
+
             const calendarEvents = data.map(event => {
-                console.log('Processing event:', event); // Debug log
                 const dateTime = new Date(event.eventDate);
                 const [hours, minutes] = event.eventTime.split(':');
                 dateTime.setHours(parseInt(hours), parseInt(minutes));
-                
+
                 return {
                     id: event._id,
                     title: event.title,
@@ -55,8 +65,6 @@ export default function CalendarView() {
                     category: event.category
                 };
             });
-            
-            console.log('Transformed calendar events:', calendarEvents);
             setEvents(calendarEvents);
         } catch (err) {
             setError(err.message);
@@ -120,4 +128,6 @@ export default function CalendarView() {
             </div>
         </div>
     );
-}
+};
+
+export default CalendarView;

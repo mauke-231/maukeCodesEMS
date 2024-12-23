@@ -133,11 +133,27 @@ app.get("/profile", async (req, res) => {
 // Event routes
 app.get("/events", async (req, res) => {
    try {
+      console.log('Fetching events...');
       const events = await Event.find().populate('createdBy', 'name');
+      console.log('Events fetched:', events);
       res.json(events);
    } catch (error) {
+      console.error('Error fetching events:', error);
       res.status(500).json({ error: "Failed to fetch events" });
    }
+});
+
+app.get('/events/:id', async (req, res) => {
+    try {
+        const event = await Event.findById(req.params.id).populate('createdBy', 'name');
+        if (!event) {
+            return res.status(404).json({ error: 'Event not found' });
+        }
+        res.json(event);
+    } catch (error) {
+        console.error('Error fetching event details:', error);
+        res.status(500).json({ error: 'Failed to fetch event details' });
+    }
 });
 
 app.get("/events/category/:category", async (req, res) => {
@@ -180,99 +196,6 @@ app.put("/events/:id", requireAdmin, async (req, res) => {
    }
 });
 
-app.delete("/events/:id", requireAdmin, async (req, res) => {
-   try {
-      await Event.findByIdAndDelete(req.params.id);
-      res.json({ message: "Event deleted successfully" });
-   } catch (error) {
-      res.status(500).json({ error: "Failed to delete event" });
-   }
-});
-
-// Add these routes after your existing routes
-
-// Get all events
-app.get('/events', async (req, res) => {
-    try {
-        const events = await Event.find()
-            .sort({ eventDate: 1 }); // Sort by date ascending
-        res.json(events);
-    } catch (error) {
-        console.error('Error fetching events:', error);
-        res.status(500).json({ error: 'Failed to fetch events' });
-    }
-});
-
-// Get events by category
-app.get('/events/category/:category', async (req, res) => {
-    try {
-        const events = await Event.find({ 
-            category: req.params.category 
-        }).sort({ eventDate: 1 });
-        res.json(events);
-    } catch (error) {
-        console.error('Error fetching events by category:', error);
-        res.status(500).json({ error: 'Failed to fetch events' });
-    }
-});
-
-// Get single event by ID
-app.get('/events/:id', async (req, res) => {
-    try {
-        const event = await Event.findById(req.params.id);
-        if (!event) {
-            return res.status(404).json({ error: 'Event not found' });
-        }
-        res.json(event);
-    } catch (error) {
-        console.error('Error fetching event:', error);
-        res.status(500).json({ error: 'Failed to fetch event' });
-    }
-});
-
-// Create new event (admin only)
-app.post('/events', requireAuth, requireAdmin, async (req, res) => {
-    try {
-        console.log('Received event data:', req.body); // Add logging
-        console.log('User creating event:', req.user); // Add logging
-
-        const eventData = {
-            ...req.body,
-            createdBy: req.user._id
-        };
-
-        console.log('Processed event data:', eventData); // Add logging
-
-        const newEvent = await Event.create(eventData);
-        console.log('Created event:', newEvent); // Add logging
-        res.status(201).json(newEvent);
-    } catch (error) {
-        console.error('Detailed error:', error); // Add detailed error logging
-        res.status(500).json({ 
-            error: 'Failed to create event',
-            details: error.message 
-        });
-    }
-});
-
-// Update event (admin only)
-app.put('/events/:id', requireAuth, requireAdmin, async (req, res) => {
-    try {
-        const updatedEvent = await Event.findByIdAndUpdate(
-            req.params.id,
-            req.body,
-            { new: true }
-        );
-        if (!updatedEvent) {
-            return res.status(404).json({ error: 'Event not found' });
-        }
-        res.json(updatedEvent);
-    } catch (error) {
-        console.error('Error updating event:', error);
-        res.status(500).json({ error: 'Failed to update event' });
-    }
-});
-
 // Delete event (admin only)
 app.delete('/events/:id', requireAuth, requireAdmin, async (req, res) => {
     try {
@@ -302,34 +225,17 @@ app.post('/events/:id/rsvp', requireAuth, async (req, res) => {
             event.attendees = [];
         }
 
-        // Convert ObjectIds to strings for comparison
-        const userIdStr = userId.toString();
-        const isAttending = event.attendees.some(id => id.toString() === userIdStr);
-
-        if (isAttending) {
-            // Remove user from attendees
-            event.attendees = event.attendees.filter(id => id.toString() !== userIdStr);
-            console.log('User removed from attendees');
-        } else {
-            // Check capacity before adding
-            if (event.attendees.length >= event.capacity) {
-                return res.status(400).json({ error: 'Event is fully booked' });
-            }
-            // Add user to attendees
-            event.attendees.push(userId);
-            console.log('User added to attendees');
+        // Check if user has already RSVP'd
+        if (event.attendees.includes(userId)) {
+            return res.status(400).json({ error: 'You have already RSVP\'d to this event' });
         }
 
+        event.attendees.push(userId);
         await event.save();
-        
-        res.json({
-            success: true,
-            message: isAttending ? 'RSVP cancelled' : 'RSVP confirmed',
-            event,
-            spotsRemaining: event.capacity - event.attendees.length
-        });
+
+        res.json({ message: 'RSVP successful' });
     } catch (error) {
-        console.error('RSVP error:', error);
+        console.error('Error during RSVP:', error);
         res.status(500).json({ error: 'Failed to update RSVP' });
     }
 });
