@@ -1,17 +1,12 @@
-/* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
-import LoginPage from './pages/LoginPage';
-import HomePage from './pages/HomePage';
-import RegisterPage from './pages/RegisterPage';
-import CalendarView from './pages/CalendarView';
-import EventPage from './pages/EventPage';
-import CreateEvent from './pages/CreateEvent';
-import EventDetails from './pages/EventDetails';
-import MyRSVPs from './pages/MyRSVPs'; // Import the MyRSVPs component
 import Header from './pages/Header';
-import { UserProvider, UserContext } from './UserContext';
-import ProtectedRoute from './components/ProtectedRoute';
+import EventPage from './pages/EventPage';
+import CalendarView from './pages/CalendarView';
+import LoginPage from './pages/LoginPage';
+import RegisterPage from './pages/RegisterPage';
+import MyRSVPs from './pages/MyRSVPs';
+import { UserContext } from './UserContext';
 
 function App() {
     const [user, setUser] = useState(null);
@@ -26,6 +21,8 @@ function App() {
                 if (response.ok) {
                     const data = await response.json();
                     setUser(data);
+                } else {
+                    throw new Error('Failed to fetch profile');
                 }
             } catch (err) {
                 console.error('Error fetching profile:', err);
@@ -82,17 +79,7 @@ function App() {
                     <Route path="/register" element={<RegisterPage />} />
                     <Route path="/calendar" element={user ? <CalendarView /> : <Navigate to="/login" />} />
                     <Route path="/events" element={user ? <EventPage /> : <Navigate to="/login" />} />
-                    <Route path="/events/:id" element={<EventDetails />} />
-                    <Route path="/create-event" element={
-                        <ProtectedRoute>
-                            <CreateEvent />
-                        </ProtectedRoute>
-                    } />
-                    <Route path="/my-rsvps" element={
-                        <ProtectedRoute>
-                            <MyRSVPs />
-                        </ProtectedRoute>
-                    } />
+                    <Route path="/my-rsvps" element={user ? <MyRSVPs /> : <Navigate to="/login" />} />
                 </Routes>
             </Router>
         </UserContext.Provider>

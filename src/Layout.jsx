@@ -1,5 +1,5 @@
 import Footer from './pages/Footer'
-import Header from './pages/Header'
+import Header from '../ems/client/src/pages/Header'
 import {Outlet} from "react-router-dom"
 
 export default function Layout() {

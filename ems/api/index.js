@@ -16,12 +16,12 @@ const bcryptSalt = bcrypt.genSaltSync(10);
 const jwtSecret = process.env.JWT_SECRET;
 
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(
    cors({
       credentials: true,
-      origin: ['http://localhost:3000', 
-        'https://campus-backend-oxyd.onrender.com']
+      origin: 'http://localhost:3000' // Replace with your frontend URL
    })
 );
 
@@ -126,8 +126,44 @@ app.post("/logout", (req, res) => {
 // Protected routes (require authentication)
 app.use(requireAuth);
 
-app.get("/profile", async (req, res) => {
-   res.json(req.user);
+app.get("/profile", requireAuth, async (req, res) => {
+    try {
+        const user = await UserModel.findById(req.user._id).select('-password');
+        res.json(user);
+    } catch (error) {
+        console.error('Error fetching profile:', error);
+        res.status(500).json({ error: "Failed to fetch profile" });
+    }
+});
+
+app.get("/profile/rsvps", async (req, res) => {
+    try {
+        const events = await Event.find({ attendees: req.user._id });
+        res.json(events);
+    } catch (error) {
+        console.error('Error fetching RSVP events:', error);
+        res.status(500).json({ error: "Failed to fetch RSVP events" });
+    }
+});
+
+app.post('/events/:id/cancel-rsvp', async (req, res) => {
+    try {
+        const eventId = req.params.id;
+        const userId = req.user._id;
+
+        const event = await Event.findById(eventId);
+        if (!event) {
+            return res.status(404).json({ error: 'Event not found' });
+        }
+
+        event.attendees = event.attendees.filter(attendee => !attendee.equals(userId));
+        await event.save();
+
+        res.json({ message: 'RSVP cancelled successfully' });
+    } catch (error) {
+        console.error('Error cancelling RSVP:', error);
+        res.status(500).json({ error: 'Failed to cancel RSVP' });
+    }
 });
 
 // Event routes

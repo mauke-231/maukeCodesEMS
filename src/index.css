@@ -29,15 +29,4 @@ input.input-et{
 
 .custom-list li:before {
   content: "•"; 
-  font-size: 17px;
-  position: absolute;
-  margin-left: -1.5em; 
-}
-
-.truncate-text {
-  display: -webkit-box;
-  -webkit-line-clamp:3 ; 
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  text-overflow: ellipsis;
 }
