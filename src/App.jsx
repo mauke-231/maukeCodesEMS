@@ -7,6 +7,7 @@ import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import MyRSVPs from './pages/MyRSVPs';
 import { UserContext } from './UserContext';
+import '.App.css';
 
 function App() {
     const [user, setUser] = useState(null);

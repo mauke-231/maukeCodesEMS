@@ -28,7 +28,7 @@ export default function CreateEvent() {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${user.token}` // Include the user's token
+                    'Authorization': `Bearer ${user.token}`
                 },
                 credentials: 'include',
                 body: JSON.stringify({
