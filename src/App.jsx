@@ -2,12 +2,13 @@ import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import Header from './pages/Header';
 import EventPage from './pages/EventPage';
+import EventDetails from './pages/EventDetails';
 import CalendarView from './pages/CalendarView';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import MyRSVPs from './pages/MyRSVPs';
 import { UserContext } from './UserContext';
-import '.App.css';
+import './App.css';
 
 function App() {
     const [user, setUser] = useState(null);
