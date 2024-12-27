@@ -8,8 +8,8 @@ This project uses **JavaScript**, **React (with Vite)** for the frontend, and **
 
 ---
 ## Deployment Links:
-### Frontend: (under development)
-#### Alternative: download application foler(.zip) and run locally (steps given below)
+### Frontend: https://maukecodesems.onrender.com
+#### Alternative: download application folder(.zip) and run locally (steps given below)
 ### Backend: https://campus-backend-oxyd.onrender.com
 
 ---
