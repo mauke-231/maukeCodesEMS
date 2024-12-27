@@ -1,7 +1,9 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { UserContext } from '../UserContext';
 
 const EventPage = () => {
+    const { user } = useContext(UserContext);
     const [events, setEvents] = useState([]);
     const [filteredEvents, setFilteredEvents] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -34,7 +36,8 @@ const EventPage = () => {
             const response = await fetch('http://localhost:4000/events', {
                 credentials: 'include',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${user.token}`
                 }
             });
             const data = await response.json();
@@ -74,6 +77,7 @@ const EventPage = () => {
 
     return (
         <div className="container mx-auto px-4 py-8">
+            <h1 className="text-2xl font-bold text-center text-red-600 mb-6">Events</h1>
             {/* Search and Filter Section */}
             <div className="mb-8 space-y-4">
                 <input
