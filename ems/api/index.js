@@ -21,7 +21,7 @@ app.use(cookieParser());
 app.use(
    cors({
       credentials: true,
-      origin: 'http://localhost:3000' // Replace with your frontend URL
+      origin: ['http://localhost:3000', 'http://192.168.8.141:3000'] // Add your frontend origins here
    })
 );
 
@@ -31,14 +31,14 @@ app.get("/", (req, res) => {
 });
 
 // MongoDB connection
-mongoose.connect(process.env.MONGODB_URI)
-    .then(() => {
-        console.log('Successfully connected to MongoDB Atlas');
-    })
-    .catch((error) => {
-        console.error('MongoDB connection error:', error);
-        process.exit(1);
-    });
+mongoose.connect(process.env.MONGODB_URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+}).then(() => {
+    console.log('Connected to MongoDB');
+}).catch((error) => {
+    console.error('MongoDB connection error:', error);
+});
 
 // File upload configuration
 const storage = multer.diskStorage({
@@ -167,27 +167,23 @@ app.post('/events/:id/cancel-rsvp', async (req, res) => {
 });
 
 // Event routes
-app.get("/events", async (req, res) => {
-   try {
-      console.log('Fetching events...');
-      const events = await Event.find().populate('createdBy', 'name');
-      console.log('Events fetched:', events);
-      res.json(events);
-   } catch (error) {
-      console.error('Error fetching events:', error);
-      res.status(500).json({ error: "Failed to fetch events" });
-   }
+app.get("/events", requireAuth, async (req, res) => {
+    try {
+        const events = await Event.find();
+        res.json(events);
+    } catch (error) {
+        res.status(500).json({ error: 'Failed to fetch events' });
+    }
 });
 
-app.get('/events/:id', async (req, res) => {
+app.get('/events/:id', requireAuth, async (req, res) => {
     try {
-        const event = await Event.findById(req.params.id).populate('createdBy', 'name');
+        const event = await Event.findById(req.params.id);
         if (!event) {
             return res.status(404).json({ error: 'Event not found' });
         }
         res.json(event);
     } catch (error) {
-        console.error('Error fetching event details:', error);
         res.status(500).json({ error: 'Failed to fetch event details' });
     }
 });
@@ -206,42 +202,38 @@ app.get("/events/category/:category", async (req, res) => {
 
 // Admin-only routes
 app.post("/events", requireAdmin, upload.single("image"), async (req, res) => {
-   try {
-      const eventData = {
-         ...req.body,
-         image: req.file ? req.file.path : "",
-         createdBy: req.user._id
-      };
-      const newEvent = await Event.create(eventData);
-      res.status(201).json(newEvent);
-   } catch (error) {
-      res.status(500).json({ error: "Failed to create event" });
-   }
+    try {
+        const eventData = {
+            ...req.body,
+            image: req.file ? req.file.path : "",
+            createdBy: req.user._id
+        };
+        const newEvent = await Event.create(eventData);
+        res.status(201).json(newEvent);
+    } catch (error) {
+        res.status(500).json({ error: "Failed to create event" });
+    }
 });
 
 app.put("/events/:id", requireAdmin, async (req, res) => {
-   try {
-      const updatedEvent = await Event.findByIdAndUpdate(
-         req.params.id,
-         req.body,
-         { new: true }
-      );
-      res.json(updatedEvent);
-   } catch (error) {
-      res.status(500).json({ error: "Failed to update event" });
-   }
+    try {
+        const updatedEvent = await Event.findByIdAndUpdate(
+            req.params.id,
+            req.body,
+            { new: true }
+        );
+        res.json(updatedEvent);
+    } catch (error) {
+        res.status(500).json({ error: "Failed to update event" });
+    }
 });
 
 // Delete event (admin only)
 app.delete('/events/:id', requireAuth, requireAdmin, async (req, res) => {
     try {
-        const deletedEvent = await Event.findByIdAndDelete(req.params.id);
-        if (!deletedEvent) {
-            return res.status(404).json({ error: 'Event not found' });
-        }
-        res.json({ message: 'Event deleted successfully' });
+        await Event.findByIdAndDelete(req.params.id);
+        res.json({ message: 'Event deleted' });
     } catch (error) {
-        console.error('Error deleting event:', error);
         res.status(500).json({ error: 'Failed to delete event' });
     }
 });
@@ -300,3 +292,5 @@ const PORT = process.env.PORT || 4000;
 app.listen(PORT, () => {
    console.log(`Server running on http://localhost:${PORT}`);
 });
+
+module.exports = app;
