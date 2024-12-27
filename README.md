@@ -9,6 +9,7 @@ This project uses **JavaScript**, **React (with Vite)** for the frontend, and **
 ---
 ## Deployment Links:
 ### Frontend: (under development)
+#### Alternative: download application foler(.zip) and run locally (steps given below)
 ### Backend: https://campus-backend-oxyd.onrender.com
 
 ---
@@ -81,7 +82,7 @@ npm install
 
 **For the Frontend:**
 ```bash
-cd ems/client
+In the root folder/directory
 npm install
 ```
 
@@ -107,33 +108,44 @@ The backend runs on: `http://localhost:4000` (or the configured port).
 #### Frontend:
 Run the frontend application:
 ```bash
-cd ems/api
-npm start
+cd maukeCodesEMS (or root directory)
+npm start or serve -s build
 ```
 
-The frontend runs on: `http://localhost:5173` (Vite default).
+The frontend runs on: `http://localhost:3000`.
 
 ---
 
 ## Directory Structure
 ```
-ems/
-|-- client/                # Frontend code (React + Vite)
-|   |-- src/
-|       |-- components/    # Reusable React components
-|       |-- pages/         # Page components (Home, Calendar, etc.)
-|       |-- App.jsx        # Main React App component
-|       |-- main.jsx       # Entry point for React
-|   |-- index.html         # HTML template
-|   |-- package.json       # Frontend dependencies
-|
-|-- api/                   # Backend code (Node.js + Express)
-|   |-- models/            # Database models
-|   |-- routes/            # API routes
-|   |-- index.js           # Entry point for backend server
-|   |-- package.json       # Backend dependencies
-|
-|-- README.md              # Project documentation
+maukeCodesEMS/
+|-- assets/
+|-- build/
+|-- public/
+|   |-- index.html
+|-- src/
+|   |-- components/
+|   |-- pages/
+|   |-- services/
+|   |-- App.css
+|   |-- App.jsx
+|   |-- index.css
+|   |-- index.js
+|   |-- Layout.jsx
+|   |-- UserContext.jsx
+|-- ems/
+|   |-- api/
+|   |   |-- middleware/
+|   |   |-- models/
+|   |-- client/
+|       |-- build/
+|-- .eslintrc.cjs
+|-- .gitignore
+|-- package.json
+|-- postcss.config.js
+|-- tailwind.config.js
+|-- vite.config.js
+|-- README.md
 ```
 
 ---
