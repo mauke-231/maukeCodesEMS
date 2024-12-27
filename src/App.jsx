@@ -7,11 +7,7 @@ import CalendarView from './pages/CalendarView';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import MyRSVPs from './pages/MyRSVPs';
-<<<<<<< HEAD
 import { UserContext, UserProvider } from './UserContext';
-=======
-import { UserContext } from './UserContext';
->>>>>>> a2731b4fcb03695b163bd34d9c47acbc188fa035
 import './App.css';
 
 function App() {
