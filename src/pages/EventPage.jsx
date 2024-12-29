@@ -17,7 +17,7 @@ const EventPage = () => {
     useEffect(() => {
         const checkAuth = async () => {
             try {
-                const response = await fetch('http://localhost:4000/profile', {
+                const response = await fetch('https://campus-backend-oxyd.onrender.com/profile', {
                     credentials: 'include'
                 });
                 if (!response.ok) throw new Error('Not authenticated');
@@ -33,7 +33,7 @@ const EventPage = () => {
     const fetchEvents = async () => {
         try {
             console.log('Fetching events...');
-            const response = await fetch('http://localhost:4000/events', {
+            const response = await fetch('https://campus-backend-oxyd.onrender.com/events', {
                 credentials: 'include',
                 headers: {
                     'Content-Type': 'application/json',

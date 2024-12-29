@@ -17,7 +17,7 @@ function App() {
     useEffect(() => {
         const fetchProfile = async () => {
             try {
-                const response = await fetch('http://localhost:4000/profile', {
+                const response = await fetch('https://campus-backend-oxyd.onrender.com/profile', {
                     credentials: 'include'
                 });
                 if (response.ok) {

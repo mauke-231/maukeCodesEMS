@@ -11,7 +11,7 @@ export default function MyRSVPs() {
     useEffect(() => {
         const fetchMyRSVPs = async () => {
             try {
-                const response = await fetch('http://localhost:4000/my-rsvps', {
+                const response = await fetch('https://campus-backend-oxyd.onrender.com/my-rsvps', {
                     headers: {
                         'Content-Type': 'application/json',
                         'Authorization': `Bearer ${user.token}`

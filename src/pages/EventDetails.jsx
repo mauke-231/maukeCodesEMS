@@ -19,7 +19,7 @@ export default function EventDetails() {
 
         const fetchEventDetails = async () => {
             try {
-                const response = await fetch(`http://localhost:4000/events/${id}`, {
+                const response = await fetch(`https://campus-backend-oxyd.onrender.com/events/${id}`, {
                     headers: {
                         'Content-Type': 'application/json',
                         'Authorization': `Bearer ${user.token}`
@@ -43,7 +43,7 @@ export default function EventDetails() {
 
     const handleRsvp = async () => {
         try {
-            const response = await fetch(`http://localhost:4000/events/${id}/rsvp`, {
+            const response = await fetch(`https://campus-backend-oxyd.onrender.com/events/${id}/rsvp`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

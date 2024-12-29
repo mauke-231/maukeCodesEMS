@@ -8,7 +8,7 @@ const DeleteEvent = ({ eventId, onDelete }) => {
   const handleDelete = async () => {
     try {
       // Replace with your actual API endpoint
-      await axios.delete(`http://localhost:3000/api/events/${eventId}`);
+      await axios.delete(`https://campus-backend-oxyd.onrender.com/api/events/${eventId}`);
       setShowConfirmation(false);
       // Callback to parent component to update the events list
       onDelete(eventId);

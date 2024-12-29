@@ -21,7 +21,8 @@ app.use(cookieParser());
 app.use(
    cors({
       credentials: true,
-      origin: ['http://localhost:3000', 'http://192.168.8.141:3000'] // Add your frontend origins here
+      //origin: ['http://localhost:3000', 'http://192.168.8.141:3000'] // Add your frontend origins here
+      origin: ['https://maukecodesems.onrender.com']
    })
 );
 
