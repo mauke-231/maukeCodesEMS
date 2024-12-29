@@ -41,13 +41,13 @@ function App() {
             <Router>
                 <Header />
                 <Routes>
+                    <Route path="*" element={<Navigate to="/events" />} />
                     <Route path="/events" element={<EventPage />} />
                     <Route path="/events/:id" element={<EventDetails />} />
                     <Route path="/calendar" element={<CalendarView />} />
                     <Route path="/login" element={<LoginPage />} />
                     <Route path="/register" element={<RegisterPage />} />
                     <Route path="/my-rsvps" element={<MyRSVPs />} />
-                    <Route path="*" element={<Navigate to="/events" />} />
                 </Routes>
             </Router>
         </UserProvider>
