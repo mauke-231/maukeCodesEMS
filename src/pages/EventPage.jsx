@@ -15,44 +15,37 @@ const EventPage = () => {
     const categories = ['All', 'Academic', 'Social', 'Sports', 'Other'];
 
     useEffect(() => {
-        const checkAuth = async () => {
-            try {
-                const response = await fetch('https://campus-backend-oxyd.onrender.com/profile', {
-                    credentials: 'include'
-                });
-                if (!response.ok) throw new Error('Not authenticated');
-            } catch (err) {
+        const fetchEvents = async () => {
+            if (!user) {
                 navigate('/login');
+                return;
+            }
+
+            try {
+                console.log('Fetching events...');
+                const response = await fetch('https://campus-backend-oxyd.onrender.com/events', {
+                    credentials: 'include',
+                    headers: {
+                        'Authorization': `Bearer ${localStorage.getItem('token')}`
+                    }
+                });
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    throw new Error(errorData.error || 'Failed to fetch events');
+                }
+                const data = await response.json();
+                setEvents(data);
+                setFilteredEvents(data);
+            } catch (err) {
+                setError(err.message);
+                console.error('Error fetching events:', err);
+            } finally {
+                setLoading(false);
             }
         };
 
-        checkAuth();
         fetchEvents();
-    }, [navigate]);
-
-    const fetchEvents = async () => {
-        try {
-            console.log('Fetching events...');
-            const response = await fetch('https://campus-backend-oxyd.onrender.com/events', {
-                credentials: 'include',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${user.token}`
-                }
-            });
-            const data = await response.json();
-            console.log('Response data:', data);
-            if (!response.ok) throw new Error(data.error || 'Failed to fetch events');
-
-            setEvents(data);
-            setFilteredEvents(data);
-        } catch (err) {
-            setError(err.message);
-            console.error('Error fetching events:', err);
-        } finally {
-            setLoading(false);
-        }
-    };
+    }, [user, navigate]);
 
     // Filter events based on search term and category
     useEffect(() => {
