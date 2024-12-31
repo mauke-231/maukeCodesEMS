@@ -25,6 +25,7 @@ const LoginPage = () => {
             }
             const data = await response.json();
             localStorage.setItem('token', data.token);
+            console.log(token);
             setUser(data.user);
             //navigate('/events');
         } catch (err) {

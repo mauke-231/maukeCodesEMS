@@ -1,13 +1,11 @@
-const express = require("express");
-const cors = require("cors");
-require("dotenv").config();
-const mongoose = require("mongoose");
-const UserModel = require("./models/User");
-const Event = require("./models/Event");
-const bcrypt = require("bcryptjs");
-const jwt = require("jsonwebtoken");
-const cookieParser = require("cookie-parser");
-const multer = require("multer");
+require('dotenv').config();
+const express = require('express');
+const cors = require('cors');
+const mongoose = require('mongoose');
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
+const cookieParser = require('cookie-parser');
+const path = require('path');
 const { requireAuth, requireAdmin } = require('./middleware/authMiddleware');
 
 const app = express();
@@ -21,10 +19,12 @@ app.use(cookieParser());
 app.use(
    cors({
       credentials: true,
-      //origin: ['http://localhost:3000', 'http://192.168.8.141:3000'] // Add your frontend origins here
       origin: ['https://maukecodesems.onrender.com']
    })
 );
+
+// Serve static files from the React app
+app.use(express.static(path.join(__dirname, 'client/build')));
 
 // Add this after your middleware setup (after the cors configuration)
 app.get("/", (req, res) => {
@@ -287,6 +287,11 @@ app.get('/my-rsvps', requireAuth, async (req, res) => {
 app.use((err, req, res, next) => {
    console.error(err.stack);
    res.status(500).json({ error: 'Something broke!' });
+});
+
+// The "catchall" handler: for any request that doesn't match one above, send back React's index.html file.
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'client/build/index.html'));
 });
 
 const PORT = process.env.PORT || 4000;
