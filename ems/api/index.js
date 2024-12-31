@@ -5,6 +5,7 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const cookieParser = require('cookie-parser');
+const multer = require('multer');
 const path = require('path');
 const { requireAuth, requireAdmin } = require('./middleware/authMiddleware');
 
@@ -24,7 +25,7 @@ app.use(
 );
 
 // Serve static files from the React app
-app.use(express.static(path.join(__dirname, 'client/build')));
+app.use(express.static(path.join(__dirname, 'build')));
 
 // Ensure correct MIME type for CSS
 app.use('/index.css', (req, res, next) => {
@@ -297,7 +298,7 @@ app.use((err, req, res, next) => {
 
 // The "catchall" handler: for any request that doesn't match one above, send back React's index.html file.
 app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'client/build/index.html'));
+    res.sendFile(path.join(__dirname, 'build/index.html'));
 });
 
 const PORT = process.env.PORT || 4000;
