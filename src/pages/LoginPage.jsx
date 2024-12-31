@@ -25,9 +25,8 @@ const LoginPage = () => {
             }
             const data = await response.json();
             localStorage.setItem('token', data.token);
-            console.log(token);
             setUser(data.user);
-            //navigate('/events');
+            navigate('/events');
         } catch (err) {
             setError(err.message);
             console.error('Error during login:', err);

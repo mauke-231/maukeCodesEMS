@@ -1,8 +1,8 @@
-import { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { UserContext } from '../UserContext';
 
-export default function EventDetails() {
+const EventDetails = () => {
     const { id } = useParams();
     const { user } = useContext(UserContext);
     const navigate = useNavigate();
@@ -20,9 +20,10 @@ export default function EventDetails() {
         const fetchEventDetails = async () => {
             try {
                 const response = await fetch(`https://campus-backend-oxyd.onrender.com/events/${id}`, {
+                    method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${user.token}`
+                        'Authorization': `Bearer ${localStorage.getItem('token')}`
                     },
                     credentials: 'include'
                 });
@@ -93,4 +94,6 @@ export default function EventDetails() {
             </div>
         </div>
     );
-}
+};
+
+export default EventDetails;
