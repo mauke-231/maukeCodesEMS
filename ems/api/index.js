@@ -25,7 +25,7 @@ app.use(
 );
 
 // Serve static files from the React app
-app.use(express.static(path.join(__dirname, 'build')));
+app.use(express.static(path.join(__dirname, 'client/build')));
 
 // Ensure correct MIME type for CSS
 app.use('/index.css', (req, res, next) => {
@@ -54,8 +54,8 @@ const storage = multer.diskStorage({
       cb(null, "uploads/");
    },
    filename: (req, file, cb) => {
-      cb(null, file.originalname);
-   },
+      cb(null, `${Date.now()}-${file.originalname}`);
+   }
 });
 
 const upload = multer({ storage });
@@ -292,13 +292,13 @@ app.get('/my-rsvps', requireAuth, async (req, res) => {
 
 // Error handling middleware
 app.use((err, req, res, next) => {
-   console.error(err.stack);
-   res.status(500).json({ error: 'Something broke!' });
+    console.error(err.stack);
+    res.status(500).json({ error: 'Internal server error' });
 });
 
 // The "catchall" handler: for any request that doesn't match one above, send back React's index.html file.
 app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'build/index.html'));
+    res.sendFile(path.join(__dirname, 'client/build/index.html'));
 });
 
 const PORT = process.env.PORT || 4000;
