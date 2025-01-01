@@ -20,12 +20,11 @@ function App() {
                 const response = await fetch('https://campus-backend-oxyd.onrender.com/profile', {
                     credentials: 'include'
                 });
-                if (response.ok) {
-                    const data = await response.json();
-                    setUser(data);
-                } else {
+                if (!response.ok) {
                     throw new Error('Failed to fetch profile');
                 }
+                const data = await response.json();
+                setUser(data);
             } catch (err) {
                 console.error('Error fetching profile:', err);
             } finally {
@@ -36,12 +35,14 @@ function App() {
         fetchProfile();
     }, []);
 
+    if (loading) return <div>Loading...</div>;
+
     return (
         <UserProvider value={{ user, setUser }}>
             <Router>
                 <Header />
                 <Routes>
-                    <Route path="*" element={<Navigate to="/events" />} />
+                    <Route path="/" element={<Navigate to="/events" />} />
                     <Route path="/events" element={<EventPage />} />
                     <Route path="/events/:id" element={<EventDetails />} />
                     <Route path="/calendar" element={<CalendarView />} />
