@@ -78,6 +78,7 @@ cd maukeCodesEMS
 ```bash
 cd ems/api
 npm install
+npm run build
 ```
 
 **For the Frontend:**
@@ -172,11 +173,18 @@ maukeCodesEMS/
 
 ### API Testing
 
-#### Login
+#### Login (localhost)
 ![Login](./assets/api-login.png)
 
-#### GET Events
+#### Login (deployed render API)
+![Login](./assets/render-api-login.png)
+
+#### GET Events (localhost)
 ![GET Events](./assets/api-get-events.png)
+
+#### GET Events (deployed render API)
+![API on Render](./assets/render-api-events.png)
+
 
 #### DELETE Event
 ![DELETE Event](./assets/api-delete-event.png)
