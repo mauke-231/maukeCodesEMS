@@ -8,6 +8,7 @@ const cookieParser = require('cookie-parser');
 const multer = require('multer');
 const path = require('path');
 const { requireAuth, requireAdmin } = require('./middleware/authMiddleware');
+const UserModel = require('./models/User'); // Ensure UserModel is imported
 
 const app = express();
 
