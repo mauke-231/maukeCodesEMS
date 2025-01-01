@@ -35,7 +35,6 @@ const EventPage = () => {
                 }
                 const data = await response.json();
                 setEvents(data);
-                setFilteredEvents(data);
             } catch (err) {
                 setError(err.message);
                 console.error('Error fetching events:', err);
