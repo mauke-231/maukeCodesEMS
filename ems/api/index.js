@@ -22,12 +22,12 @@ app.use(cookieParser());
 app.use(
    cors({
       credentials: true,
-      origin: ['https://maukecodesems.onrender.com']
+      origin: ['http://localhost:3000', 'https://maukecodesems.onrender.com'] // Add your frontend's origin here
    })
 );
 
 // Serve static files from the React app
-app.use(express.static(path.join(__dirname, 'client/build')));
+app.use(express.static(path.join(__dirname, '../../build'))); // Update the path to your build folder
 
 // Ensure correct MIME type for CSS
 app.use('/index.css', (req, res, next) => {
@@ -119,7 +119,7 @@ app.use((err, req, res, next) => {
 
 // The "catchall" handler: for any request that doesn't match one above, send back React's index.html file.
 app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'client/build/index.html'));
+    res.sendFile(path.join(__dirname, '../../build/index.html')); // Update the path to your build folder
 });
 
 const PORT = process.env.PORT || 4000;
