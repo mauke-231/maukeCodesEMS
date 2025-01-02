@@ -24,7 +24,8 @@ const LoginPage = () => {
                 throw new Error(errorData.error || 'Failed to login');
             }
             const data = await response.json();
-            localStorage.setItem('token', data.token);
+            localStorage.removeItem('token'); // Clear old token
+            localStorage.setItem('token', data.token); // Store new token
             setUser(data.user);
             navigate('/events');
         } catch (err) {
