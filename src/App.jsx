@@ -2,12 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { UserProvider } from './UserContext';
 import Header from '.pages/Header';
-import EventPage from './EventPage';
-import EventDetails from './EventDetails';
-import CalendarView from './CalendarView';
-import LoginPage from './LoginPage';
-import RegisterPage from './RegisterPage';
-import MyRSVPs from './MyRSVPs';
+import EventPage from '.pages/EventPage';
+import EventDetails from '.pages/EventDetails';
+import CalendarView from '.pages/CalendarView';
+import LoginPage from '.pages/LoginPage';
+import RegisterPage from '.pages/RegisterPage';
+import MyRSVPs from '.pages/MyRSVPs';
 import './App.css';
 
 function App() {
