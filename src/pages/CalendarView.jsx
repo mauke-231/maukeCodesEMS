@@ -7,7 +7,7 @@ import getDay from 'date-fns/getDay';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import { useNavigate } from 'react-router-dom';
 import enUS from 'date-fns/locale/en-US';
-import { UserContext } from '../contexts/UserContext';
+import { UserContext } from './UserContext';
 
 const locales = {
     'en-US': enUS
