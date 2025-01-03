@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { Calendar, dateFnsLocalizer } from 'react-big-calendar';
 import format from 'date-fns/format';
 import parse from 'date-fns/parse';
@@ -7,6 +7,7 @@ import getDay from 'date-fns/getDay';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import { useNavigate } from 'react-router-dom';
 import enUS from 'date-fns/locale/en-US';
+import { UserContext } from '../contexts/UserContext';
 
 const locales = {
     'en-US': enUS
@@ -25,28 +26,25 @@ const CalendarView = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const navigate = useNavigate();
+    const { user } = useContext(UserContext);
 
     useEffect(() => {
-        const checkAuth = async () => {
-            try {
-                const response = await fetch('https://campus-backend-oxyd.onrender.com/profile', {
-                    credentials: 'include'
-                });
-                if (!response.ok) throw new Error('Not authenticated');
-            } catch (err) {
-                navigate('/login');
-            }
-        };
-
-        checkAuth();
+        if (!user) {
+            navigate('/login');
+            return;
+        }
         fetchEvents();
-    }, [navigate]);
+    }, [navigate, user]);
 
     const fetchEvents = async () => {
         try {
             console.log('Fetching events...');
+            const token = localStorage.getItem('token');
             const response = await fetch('https://campus-backend-oxyd.onrender.com/events', {
-                credentials: 'include'
+                credentials: 'include',
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
             });
             const data = await response.json();
             console.log('Response data:', data);

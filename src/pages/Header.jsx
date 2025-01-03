@@ -30,9 +30,6 @@ export default function Header() {
                         )}
                         {user && (
                             <>
-                                {user.isAdmin && (
-                                    <li><Link to="/admin" className="hover:text-red-200">Admin</Link></li>
-                                )}
                                 <li><Link to="/my-rsvps" className="hover:text-red-200">My RSVPs</Link></li>
                                 <li><button onClick={handleLogout} className="hover:text-red-200">Logout</button></li>
                             </>
