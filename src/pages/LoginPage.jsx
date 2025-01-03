@@ -5,7 +5,7 @@ import { UserContext } from '../UserContext';
 const LoginPage = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [error, setError] = useState(null);
+    const [error, setError] = useState(null); // Ensure setError is correctly defined
     const { setUser } = useContext(UserContext);
     const navigate = useNavigate();
 
@@ -29,7 +29,7 @@ const LoginPage = () => {
             setUser(data.user);
             navigate('/events');
         } catch (err) {
-            setError(err.message);
+            setError(err.message); // Ensure setError is used correctly
             console.error('Error during login:', err);
         }
     };
