@@ -2,7 +2,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useContext } from 'react';
 import { UserContext } from '../UserContext';
 
-export default function Header() {
+const Header = () => {
     const { user, logout } = useContext(UserContext);
     const navigate = useNavigate();
 
@@ -39,4 +39,6 @@ export default function Header() {
             </nav>
         </header>
     );
-}
+};
+
+export default Header;
